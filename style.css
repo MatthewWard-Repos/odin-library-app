@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-bottom: 5%;
+}
+p {
+  text-align: center;
+}
+
+.dialog-btns {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.new {
+  display: block;
+  margin: 1% auto;
+}
+
+#container {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: 1fr;
+  justify-items: center;
+}
+.card {
+  background-color: aqua;
+  padding: 5%;
+  width: 100%;
+}
