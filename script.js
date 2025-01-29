@@ -56,12 +56,21 @@ function init() {
       para.textContent = `${info}`;
     }
   }
+  function addBtns(input) {
+    const lastCard = document.querySelector(".card:last-child");
+    const makeBtn = document.createElement("button");
+    lastCard.appendChild(makeBtn);
+    makeBtn.textContent = `${input.slice(0, 1).toUpperCase()}${input.slice(1)}`;
+    makeBtn.classList.add(input);
+  }
 
   function displayBook(book) {
     addDiv();
     for (let info of book) {
       addPara(info);
     }
+    addBtns("remove");
+    addBtns("read");
   }
 
   function getNewBook() {
