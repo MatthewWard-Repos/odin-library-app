@@ -19,7 +19,7 @@ function init() {
   function addBooktoLibrary(title, author, pages, read = false) {
     myLibrary.push(new Book(title, author, pages, read));
   }
-  addBooktoLibrary("hobbit", "tolkien", 432, true);
+  addBooktoLibrary("hobbit", "tolkien", 432, "true");
   addBooktoLibrary("bob bobbington", "tolkien", 432, false);
   addBooktoLibrary("bob bobbington", "tolkien", 432, false);
 
@@ -31,7 +31,7 @@ function init() {
 
   function displayAllBooks(myLibrary) {
     myLibrary.forEach((book) => {
-      displayBook(Object.values(book));
+      displayBook(Object.values(book), myLibrary.indexOf(book));
     });
   }
   displayAllBooks(myLibrary);
@@ -56,21 +56,22 @@ function init() {
       para.textContent = `${info}`;
     }
   }
-  function addBtns(input) {
+  function addBtns(input, index) {
     const lastCard = document.querySelector(".card:last-child");
     const makeBtn = document.createElement("button");
     lastCard.appendChild(makeBtn);
     makeBtn.textContent = `${input.slice(0, 1).toUpperCase()}${input.slice(1)}`;
     makeBtn.classList.add(input);
+    makeBtn.setAttribute("index", index);
   }
 
-  function displayBook(book) {
+  function displayBook(book, index) {
     addDiv();
     for (let info of book) {
       addPara(info);
     }
-    addBtns("remove");
-    addBtns("read");
+    addBtns("remove", index);
+    addBtns("read", index);
   }
 
   function getNewBook() {
@@ -78,7 +79,7 @@ function init() {
       e.preventDefault();
       const bookData = new FormData(form);
       const bookInput = [...bookData].map(([, val]) => val);
-      console.log(bookInput);
+
       addBooktoLibrary(...bookInput);
       clearDisplay();
       displayAllBooks(myLibrary);
