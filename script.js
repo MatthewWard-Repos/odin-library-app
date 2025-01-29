@@ -19,9 +19,9 @@ function init() {
   function addBooktoLibrary(title, author, pages, read = false) {
     myLibrary.push(new Book(title, author, pages, read));
   }
-  addBooktoLibrary("hobbit", "tolkien", 432, "true");
+  addBooktoLibrary("the hobbit", "tolkien", 432, "true");
   addBooktoLibrary("bob bobbington", "tolkien", 432, false);
-  addBooktoLibrary("bob bobbington", "tolkien", 432, false);
+  addBooktoLibrary("bob ", "tolkien", 432, false);
 
   function clearDisplay() {
     while (container.firstChild) {
@@ -29,12 +29,13 @@ function init() {
     }
   }
 
-  function displayAllBooks(myLibrary) {
+  function displayAllBooks() {
+    clearDisplay();
     myLibrary.forEach((book) => {
       displayBook(Object.values(book), myLibrary.indexOf(book));
     });
   }
-  displayAllBooks(myLibrary);
+  displayAllBooks();
 
   function addDiv() {
     const div = document.createElement("div");
@@ -79,12 +80,12 @@ function init() {
       e.preventDefault();
       const bookData = new FormData(form);
       const bookInput = [...bookData].map(([, val]) => val);
-
       addBooktoLibrary(...bookInput);
       clearDisplay();
       displayAllBooks(myLibrary);
       dialog.close();
       form.reset();
+      listenBtns();
     });
   }
 
@@ -96,7 +97,24 @@ function init() {
       dialog.close();
     });
   }
+
+  function listenBtns() {
+    const removeBtns = document.querySelectorAll(".remove");
+    removeBtns.forEach((btn) =>
+      btn.addEventListener("click", function (e) {
+        removeBook(e.target.getAttribute("index"));
+      })
+    );
+  }
+
+  function removeBook(index) {
+    myLibrary.splice(index, 1);
+    console.log(myLibrary);
+    displayAllBooks();
+    listenBtns();
+  }
   toggleDialog();
   getNewBook();
+  listenBtns();
 }
 init();
