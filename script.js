@@ -13,15 +13,18 @@ function init() {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    this.read = read === "true" ? true : false;
+    this.switchRead = function () {
+      this.read ? (this.read = false) : (this.read = true);
+    };
   }
 
   function addBooktoLibrary(title, author, pages, read = false) {
     myLibrary.push(new Book(title, author, pages, read));
   }
-  addBooktoLibrary("the hobbit", "tolkien", 432, "true");
-  addBooktoLibrary("bob bobbington", "tolkien", 432, false);
-  addBooktoLibrary("bob ", "tolkien", 432, false);
+  addBooktoLibrary("The Hobbit", "Tolkien", 432, "true");
+  addBooktoLibrary("Bob Bobbington", "Tolkien", 432, false);
+  addBooktoLibrary("Bob", "Tolkien", 432, false);
 
   function clearDisplay() {
     while (container.firstChild) {
@@ -49,15 +52,15 @@ function init() {
     lastCard.appendChild(para);
     if (info === false) {
       para.textContent = "Un-Read";
-    } else if (info === "true") {
+    } else if (info === true) {
       para.textContent = "Read";
     } else if (Number.isInteger(info)) {
-      para.textContent = `${info} pages`;
+      para.textContent = `${info} Pages`;
     } else {
       para.textContent = `${info}`;
     }
   }
-  function addBtns(input, index) {
+  function addBtn(input, index) {
     const lastCard = document.querySelector(".card:last-child");
     const makeBtn = document.createElement("button");
     lastCard.appendChild(makeBtn);
@@ -69,10 +72,12 @@ function init() {
   function displayBook(book, index) {
     addDiv();
     for (let info of book) {
-      addPara(info);
+      if (!(info instanceof Function)) {
+        addPara(info);
+      }
     }
-    addBtns("remove", index);
-    addBtns("read", index);
+    addBtn("remove", index);
+    addBtn("read", index);
   }
 
   function getNewBook() {
@@ -95,21 +100,32 @@ function init() {
     });
     closeBtn.addEventListener("click", function () {
       dialog.close();
+      form.reset();
     });
   }
 
   function listenBtns() {
     const removeBtns = document.querySelectorAll(".remove");
+    const readBtns = document.querySelectorAll(".read");
     removeBtns.forEach((btn) =>
       btn.addEventListener("click", function (e) {
         removeBook(e.target.getAttribute("index"));
+      })
+    );
+    readBtns.forEach((btn) =>
+      btn.addEventListener("click", function (e) {
+        toggleRead(e.target.getAttribute("index"));
       })
     );
   }
 
   function removeBook(index) {
     myLibrary.splice(index, 1);
-    console.log(myLibrary);
+    displayAllBooks();
+    listenBtns();
+  }
+  function toggleRead(index) {
+    myLibrary[index].switchRead();
     displayAllBooks();
     listenBtns();
   }
