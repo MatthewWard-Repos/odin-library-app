@@ -9,15 +9,27 @@ const container = document.querySelector("#container");
 const myLibrary = [];
 
 function init() {
-  function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read === "true" ? true : false;
-    this.switchRead = function () {
+  class Book {
+    constructor(title, author, pages, read) {
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.read = read === "true" ? true : false;
+    }
+    switchRead() {
       this.read ? (this.read = false) : (this.read = true);
-    };
+    }
   }
+
+  // function Book(title, author, pages, read) {
+  //   this.title = title;
+  //   this.author = author;
+  //   this.pages = pages;
+  //   this.read = read === "true" ? true : false;
+  //   this.switchRead = function () {
+  //     this.read ? (this.read = false) : (this.read = true);
+  //   };
+  // }
 
   function addBooktoLibrary(title, author, pages, read = false) {
     myLibrary.push(new Book(title, author, pages, read));
