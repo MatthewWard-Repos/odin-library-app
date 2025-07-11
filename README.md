@@ -2,5 +2,5 @@
 
 A demonstration of my understanding of constructors, DOM manipulation and objects.
 
-https://matthewward-repos.github.io/odin-library-app/
+
 <a href='https://matthewward-repos.github.io/odin-library-app/'>Library App</a> (Open in new tab)
