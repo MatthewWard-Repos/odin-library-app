@@ -2,65 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <script
-      src="script.js"
-      defer
-    ></script>
-    <link
-      rel="stylesheet"
-      href="style.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Library</title>
   </head>
   <body>
     <button class="new">New Book</button>
     <div id="container"></div>
     <dialog class="dialog">
-      <form
-        action=""
-        id="submit-book"
-      >
+      <form novalidate action="" id="submit-book">
         <label for="title">Title</label>
-        <input
-          required
-          type="text"
-          name="title"
-          id="title"
-        />
+        <input required type="text" name="title" id="title" />
         <label for="author">Author</label>
-        <input
-          required
-          type="text"
-          name="author"
-          id="author"
-        />
+        <input required type="text" name="author" id="author" />
         <label for="pages">Pages</label>
-        <input
-          required
-          type="number"
-          name="pages"
-          id="pages"
-        />
+        <input required type="number" name="pages" id="pages" />
         <label for="read"
-          >Read<input
-            type="checkbox"
-            name="read"
-            id="read"
-            value="true"
+          >Read<input type="checkbox" name="read" id="read" value="true"
         /></label>
       </form>
       <div class="dialog-btns">
-        <button
-          class="submit"
-          type="submit"
-          form="submit-book"
-        >
-          Submit
-        </button>
+        <button class="submit" type="submit" form="submit-book">Submit</button>
         <button class="close">Close</button>
       </div>
     </dialog>
