@@ -94,15 +94,29 @@ function init() {
 
   function getNewBook() {
     form.addEventListener("submit", function (e) {
-      e.preventDefault();
+      const title = document.querySelector("#title");
+      const titleError = document.querySelector(".title-error");
+      const author = document.querySelector("#author");
+      const pages = document.querySelector("#pages");
       const bookData = new FormData(form);
       const bookInput = [...bookData].map(([, val]) => val);
-      addBooktoLibrary(...bookInput);
-      clearDisplay();
-      displayAllBooks(myLibrary);
-      dialog.close();
-      form.reset();
-      listenBtns();
+
+      function showError() {
+        titleError.textContent = "Please submit a title*";
+        titleError.classList.add("active");
+      }
+      e.preventDefault();
+      if (!title.validity.valid) {
+        showError();
+      } else {
+        titleError.textContent = "";
+        addBooktoLibrary(...bookInput);
+        clearDisplay();
+        displayAllBooks(myLibrary);
+        dialog.close();
+        form.reset();
+        listenBtns();
+      }
     });
   }
 
