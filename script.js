@@ -94,22 +94,32 @@ function init() {
 
   function getNewBook() {
     form.addEventListener("submit", function (e) {
-      const title = document.querySelector("#title");
-      const titleError = document.querySelector(".title-error");
-      const author = document.querySelector("#author");
-      const pages = document.querySelector("#pages");
+      const form = document.querySelector("#submit-book");
+      const formInput = document.querySelectorAll("#submit-book input");
       const bookData = new FormData(form);
       const bookInput = [...bookData].map(([, val]) => val);
 
-      function showError() {
-        titleError.textContent = "Please submit a title*";
-        titleError.classList.add("active");
+      function toggleError(input, boolean) {
+        let inputError = document.querySelector(`.${input.name}-error`);
+        if (boolean) {
+          inputError.textContent = `*Please submit a value for the ${input.name}!`;
+        } else {
+          f;
+          inputError.textContent = "";
+        }
       }
       e.preventDefault();
-      if (!title.validity.valid) {
-        showError();
-      } else {
-        titleError.textContent = "";
+      formInput.forEach((input) => {
+        if (!input.validity.valid && input.name !== "read") {
+          toggleError(input, true);
+        }
+      });
+      if (form.checkValidity()) {
+        formInput.forEach((input) => {
+          if (input.name !== "read") {
+            toggleError(input, false);
+          }
+        });
         addBooktoLibrary(...bookInput);
         clearDisplay();
         displayAllBooks(myLibrary);

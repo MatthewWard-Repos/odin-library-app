@@ -73,6 +73,8 @@ label {
   margin-bottom: 10px;
 }
 
-.title-error {
+.title-error,
+.author-error,
+.pages-error {
   color: red;
 }
